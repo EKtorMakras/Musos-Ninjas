@@ -1,0 +1,43 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "editor.formatOnSave": true,
+    "vs-code-prettier-eslint.prettierLast": true,
+
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[vue]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.colorCustomizations": {
+        "commandCenter.border": "#e7e7e799",
+        "editorGroup.border": "#5f6686",
+        "panel.border": "#5f6686",
+        "sash.hoverBorder": "#5f6686",
+        "statusBar.background": "#4a4f68",
+        "statusBar.border": "#4a4f68",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#5f6686",
+        "statusBarItem.remoteBackground": "#4a4f68",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "tab.activeBorder": "#5f6686",
+        "titleBar.activeBackground": "#4a4f68",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.border": "#4a4f68",
+        "titleBar.inactiveBackground": "#4a4f6899",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#4a4f68"
+}

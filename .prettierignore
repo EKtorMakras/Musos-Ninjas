@@ -1,0 +1,6 @@
+# Ignore artifacts:
+dist
+android
+node_modules
+public
+resources

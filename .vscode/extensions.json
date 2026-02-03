@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "rvest.vs-code-prettier-eslint",
+        "Vue.volar",
+        "EditorConfig.EditorConfig",
+        "mhutchie.git-graph"
+    ]
+}
