@@ -5,10 +5,21 @@ import { createPinia } from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
+import { projectAuth } from "@/firebase";
+import { useAuthStore } from "@/stores/useAuth";
 
-const app = createApp(App);
+const pinia = createPinia();
+let app;
 
-app.use(createPinia());
-app.use(router);
+projectAuth.onAuthStateChanged((_user) => {
+    const authStore = useAuthStore(pinia);
+    authStore.setUser(_user);
+    authStore.setAuthReady(true);
 
-app.mount("#app");
+    if (!app) {
+        app = createApp(App);
+        app.use(pinia);
+        app.use(router);
+        app.mount("#app");
+    }
+});
