@@ -4,8 +4,12 @@
 /* variables */
 :root {
     --primary: #4a4f68;
+    --primary-dark: #3a3f58;
     --secondary: #ebebeb;
     --warning: #da0f41;
+    --warning-dark: #c00f3a;
+    --foreground-dark: #2a2e3a;
+    --foreground-light: #f8f9fa;
 }
 
 /* base styles  */
@@ -14,6 +18,7 @@
     padding: 0;
     font-family: "Nunito", sans-serif;
     color: var(--primary);
+    box-sizing: border-box;
 }
 
 body {
