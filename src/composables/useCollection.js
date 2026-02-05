@@ -12,6 +12,7 @@ import {
     limit,
 } from "firebase/firestore";
 import { projectFirestore } from "@/firebase";
+import { withAsync } from "@/api/helpers/withAsync";
 
 export function useCollection(collectionName) {
     const error = ref({
@@ -20,12 +21,14 @@ export function useCollection(collectionName) {
         deleteDoc: null,
         getCollection: null,
     });
+
     const loading = ref({
         addDoc: false,
         updateDoc: false,
         deleteDoc: false,
         getCollection: false,
     });
+
     const documents = ref(null);
 
     let unsubscribe = null;
@@ -35,48 +38,51 @@ export function useCollection(collectionName) {
         loading.value.addDoc = true;
         error.value.addDoc = null;
 
-        try {
-            const docRef = await addFirestoreDoc(collectionRef, doc);
-            return docRef;
-        } catch (err) {
+        const { response, error: err } = await withAsync(addFirestoreDoc, collectionRef, doc);
+
+        if (err) {
             console.error("Error adding document:", err);
             error.value.addDoc = err.message || "Could not add document";
-            throw err;
-        } finally {
             loading.value.addDoc = false;
+            throw err;
         }
+
+        loading.value.addDoc = false;
+        return response;
     };
 
     const updateDoc = async (docId, updates) => {
         loading.value.updateDoc = true;
         error.value.updateDoc = null;
 
-        try {
-            const docRef = doc(projectFirestore, collectionName, docId);
-            await updateFirestoreDoc(docRef, updates);
-        } catch (err) {
+        const docRef = doc(projectFirestore, collectionName, docId);
+        const { error: err } = await withAsync(updateFirestoreDoc, docRef, updates);
+
+        if (err) {
             console.error("Error updating document:", err);
             error.value.updateDoc = err.message || "Could not update document";
-            throw err;
-        } finally {
             loading.value.updateDoc = false;
+            throw err;
         }
+
+        loading.value.updateDoc = false;
     };
 
     const deleteDoc = async (docId) => {
         loading.value.deleteDoc = true;
         error.value.deleteDoc = null;
 
-        try {
-            const docRef = doc(projectFirestore, collectionName, docId);
-            await deleteFirestoreDoc(docRef);
-        } catch (err) {
+        const docRef = doc(projectFirestore, collectionName, docId);
+        const { error: err } = await withAsync(deleteFirestoreDoc, docRef);
+
+        if (err) {
             console.error("Error deleting document:", err);
             error.value.deleteDoc = err.message || "Could not delete document";
-            throw err;
-        } finally {
             loading.value.deleteDoc = false;
+            throw err;
         }
+
+        loading.value.deleteDoc = false;
     };
 
     const getCollection = (options = {}) => {
