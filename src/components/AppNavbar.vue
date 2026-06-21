@@ -45,13 +45,24 @@ const handleLogout = async () => {
 
             <div class="links">
                 <template v-if="authReady">
-                    <BaseButton
+                    <div
                         v-if="userIsAuth"
-                        :loading="loading.logout"
-                        @click="handleLogout"
+                        style="display: flex; align-items: center; gap: 25px;"
                     >
-                        Logout
-                    </BaseButton>
+                        <BaseButton
+                            color="primary"
+                            class="create-playlist-link"
+                            :to="{name: 'create-playlist'}"
+                        >
+                            Create playlist
+                        </BaseButton>
+                        <BaseButton
+                            :loading="loading.logout"
+                            @click="handleLogout"
+                        >
+                            Logout
+                        </BaseButton>
+                    </div>
                     <BaseButton
                         v-if="!userIsAuth"
                         color="secondary"

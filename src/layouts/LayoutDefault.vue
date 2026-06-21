@@ -1,27 +1,29 @@
 <script setup>
-// Layout logic goes here
-// Import and use header, footer, sidebar components
-// Handle layout state, navigation, etc.
+import AppNavbar from "@/components/AppNavbar.vue";
 </script>
 
 <template>
     <div class="default-layout">
-        <!-- Header Section -->
-        <!-- Add your header/navbar component here -->
+        <AppNavbar />
 
-        <!-- Main Content Area -->
         <main class="main-content">
-            <!-- This is where the page content will be rendered -->
             <slot></slot>
         </main>
-
-        <!-- Footer Section -->
-        <!-- Add your footer component here -->
-
-        <!-- Sidebar (if needed) -->
-        <!-- Add your sidebar component here -->
-
-        <!-- Modals/Overlays -->
-        <!-- Add global modals or overlays here -->
     </div>
 </template>
+
+<style scoped>
+.default-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    flex: 1;
+}
+</style>
