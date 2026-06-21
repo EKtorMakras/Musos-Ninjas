@@ -7,6 +7,7 @@ import { normalizeFirebaseError } from "@/firebase/utils";
 
 export const useAuthStore = defineStore("auth", () => {
     const user = ref(null);
+
     const authReady = ref(false);
     const error = ref({
         signup: null,
