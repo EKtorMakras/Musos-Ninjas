@@ -1,12 +1,15 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import BaseButton from "@/components/base/BaseButton.vue";
+import LayoutDefault from "@/layouts/LayoutDefault.vue";
 import { useAuthStore } from "@/stores/useAuth";
 
 const authStore = useAuthStore();
 const { error, loading } = storeToRefs(authStore);
 const { signup } = authStore;
+const router = useRouter();
 
 const formData = ref({
     displayName: "",
@@ -29,6 +32,7 @@ async function handleSignup(event) {
 
     if (!error.value.signup) {
         console.log("Signup successful:", res);
+        router.push({ name: "home" });
     } else {
         console.warn("Signup error:", error.value.signup);
     }
@@ -36,40 +40,42 @@ async function handleSignup(event) {
 </script>
 
 <template>
-    <form @submit="handleSignup">
-        <h3>Sign up</h3>
-        <input
-            v-model="formData.displayName"
-            type="text"
-            placeholder="Display name"
-        />
+    <LayoutDefault>
+        <form @submit="handleSignup">
+            <h3>Sign up</h3>
+            <input
+                v-model="formData.displayName"
+                type="text"
+                placeholder="Display name"
+            />
 
-        <input
-            v-model="formData.email"
-            type="email"
-            placeholder="Email"
-        />
+            <input
+                v-model="formData.email"
+                type="email"
+                placeholder="Email"
+            />
 
-        <input
-            v-model="formData.password"
-            type="password"
-            placeholder="Password"
-        />
+            <input
+                v-model="formData.password"
+                type="password"
+                placeholder="Password"
+            />
 
-        <p
-            v-if="error.signup"
-            class="error"
-        >
-            {{ error.signup }}
-        </p>
+            <p
+                v-if="error.signup"
+                class="error"
+            >
+                {{ error.signup }}
+            </p>
 
-        <BaseButton
-            type="submit"
-            color="primary"
-            :disabled="loading.signup"
-            :loading="loading.signup"
-        >
-            Sign up
-        </BaseButton>
-    </form>
+            <BaseButton
+                type="submit"
+                color="primary"
+                :disabled="loading.signup"
+                :loading="loading.signup"
+            >
+                Sign up
+            </BaseButton>
+        </form>
+    </LayoutDefault>
 </template>

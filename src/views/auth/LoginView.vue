@@ -2,11 +2,14 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/useAuth";
+import { useRouter } from "vue-router";
 import BaseButton from "@/components/base/BaseButton.vue";
+import LayoutDefault from "@/layouts/LayoutDefault.vue";
 
 const authStore = useAuthStore();
 const { error, loading } = storeToRefs(authStore);
 const { login } = authStore;
+const router = useRouter();
 
 const formData = ref({
     email: "",
@@ -21,6 +24,7 @@ async function handleSubmit(e) {
     if(!error.value.login) {
         // Redirect or perform actions on successful login
         console.log("Login successful:", res);
+        router.push({ name: "home" });
     } else {
         console.log("Login error:", error.value);
     }
@@ -28,33 +32,35 @@ async function handleSubmit(e) {
 </script>
 
 <template>
-    <form @submit="handleSubmit">
-        <h3>Login</h3>
-        <input
-            v-model="formData.email"
-            type="email"
-            placeholder="Email"
-        />
+    <LayoutDefault>
+        <form @submit="handleSubmit">
+            <h3>Login</h3>
+            <input
+                v-model="formData.email"
+                type="email"
+                placeholder="Email"
+            />
 
-        <input
-            v-model="formData.password"
-            type="password"
-            placeholder="Password"
-        />
+            <input
+                v-model="formData.password"
+                type="password"
+                placeholder="Password"
+            />
 
-        <p
-            v-if="error.login"
-            class="error"
-        >
-            {{ error.login }}
-        </p>
+            <p
+                v-if="error.login"
+                class="error"
+            >
+                {{ error.login }}
+            </p>
 
-        <BaseButton
-            color="primary"
-            :loading="loading.login"
-            @click="handleSubmit"
-        >
-            Log in
-        </BaseButton>
-    </form>
+            <BaseButton
+                color="primary"
+                :loading="loading.login"
+                @click="handleSubmit"
+            >
+                Log in
+            </BaseButton>
+        </form>
+    </LayoutDefault>
 </template>
