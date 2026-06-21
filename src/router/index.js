@@ -8,10 +8,15 @@ const router = createRouter({
     // linkExactActiveClass: "text-primary-500",
 });
 
+// Route Guards
 router.beforeEach((to) => {
     const authStore = useAuthStore();
 
-    if (to.name === "login" && authStore.userIsAuth) {
+    if (to.meta.requiresAuth && !authStore.userIsAuth) {
+        return { name: "login" };
+    }
+
+    if (to.meta.requiresGuest && authStore.userIsAuth) {
         return { name: "home" };
     }
 });
